@@ -28,6 +28,15 @@ export default function Main() {
         <section>
           <h2>Your Ingredients:</h2>
           <ul aria-live="polite">{ingredientsListItems}</ul>
+          {ingredients.length >= 4 ? (
+            <div className="show-recipe-container">
+              <div>
+                <h3>Ready for a recipe?</h3>
+                <p>Generate a recipe from your list of ingredients.</p>
+              </div>
+              <button>Get a recipe</button>
+            </div>
+            ) : null}
         </section>
       ) : null}
     </main>
