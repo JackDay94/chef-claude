@@ -1,12 +1,9 @@
 import React from "react";
+import IngredientsList from "./IngredientsList";
 
 export default function Main() {
   const [ingredients, setIngredients] = React.useState([]);
   const [errorMessage, setErrorMessage] = React.useState("");
-
-  const ingredientsListItems = ingredients.map((ingredient) => (
-    <li key={ingredient}>{ingredient}</li>
-  ));
 
   function addIngredient(formData) {
     const newIngredient = formData.get("ingredient").trim();
@@ -34,23 +31,7 @@ export default function Main() {
 
       {errorMessage && <p style={{ color: "red", fontWeight: "500", textAlign: "center" }}>{errorMessage}</p>}
 
-      {ingredients.length > 0 ? (
-        <section>
-          <h2>Your Ingredients:</h2>
-          <ul aria-live="polite" className="ingredients-list">
-            {ingredientsListItems}
-          </ul>
-          {ingredients.length >= 4 ? (
-            <div className="show-recipe-container">
-              <div>
-                <h3>Ready for a recipe?</h3>
-                <p>Generate a recipe from your list of ingredients.</p>
-              </div>
-              <button>Get a recipe</button>
-            </div>
-          ) : null}
-        </section>
-      ) : null}
+      {ingredients.length > 0 && <IngredientsList ingredients={ingredients}/>}
     </main>
   );
 }
