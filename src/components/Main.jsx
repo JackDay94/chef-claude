@@ -1,9 +1,11 @@
 import React from "react";
 import IngredientsList from "./IngredientsList";
+import Recipe from "./Recipe";
 
 export default function Main() {
   const [ingredients, setIngredients] = React.useState([]);
   const [errorMessage, setErrorMessage] = React.useState("");
+  const [showRecipe, setShowRecipe] = React.useState(false);
 
   function addIngredient(formData) {
     const newIngredient = formData.get("ingredient").trim();
@@ -15,6 +17,10 @@ export default function Main() {
       setIngredients((prevIngredients) => [...prevIngredients, newIngredient]);
       setErrorMessage("");
     }
+  }
+
+  function toggleRecipe() {
+    setShowRecipe((prevShowRecipe) => !prevShowRecipe);
   }
 
   return (
@@ -29,9 +35,20 @@ export default function Main() {
         <button>Add ingredient</button>
       </form>
 
-      {errorMessage && <p style={{ color: "red", fontWeight: "500", textAlign: "center" }}>{errorMessage}</p>}
+      {errorMessage && (
+        <p style={{ color: "red", fontWeight: "500", textAlign: "center" }}>
+          {errorMessage}
+        </p>
+      )}
 
-      {ingredients.length > 0 && <IngredientsList ingredients={ingredients}/>}
+      {ingredients.length > 0 && (
+        <IngredientsList
+          ingredients={ingredients}
+          toggleRecipe={toggleRecipe}
+        />
+      )}
+
+      {showRecipe && <Recipe />}
     </main>
   );
 }
