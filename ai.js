@@ -10,6 +10,7 @@ in markdown to make it easier to render to a web page
 
 const anthropic = new Anthropic({
     apiKey: import.meta.env.VITE_ANTHROPIC_API_KEY,
+    dangerouslyAllowBrowser: true,
 })
 
 export async function getRecipeFromChefClaude(ingredientsArr) {
