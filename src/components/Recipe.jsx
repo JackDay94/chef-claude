@@ -1,8 +1,7 @@
-export default function Recipe() {
+export default function Recipe(props) {
   return (
     <section>
-      <h2>Your Recommendation:</h2>
-      <p>Recipe content goes here.</p>
+      {props.claudeRecipe}
     </section>
   );
 }
