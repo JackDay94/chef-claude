@@ -9,6 +9,10 @@ export default function Main() {
   const [recipe, setRecipe] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
 
+  /**
+   * Adds an ingredient to the list of ingredients and
+   * returns an error if the input is empty or already exists
+   */
   function addIngredient(formData) {
     const newIngredient = formData.get("ingredient").trim();
     if (ingredients.includes(newIngredient)) {
@@ -21,13 +25,38 @@ export default function Main() {
     }
   }
 
+  /**
+   * Clear the ingredients array and clear the error message
+   * and generated recipe
+   */
+  function resetIngredients() {
+    setIngredients([]);
+    setErrorMessage("");
+    setRecipe("");
+  }
+
+  /**
+   * Remove an Individual ingredient from the list and clear
+   * error message and generated recipe
+   */
+  function removeIngredient(ingredientToRemove) {
+    setIngredients((prevIngredients) =>
+      prevIngredients.filter((ingredient) => ingredient !== ingredientToRemove)
+    );
+    setErrorMessage("");
+    setRecipe("");
+  }
+
+  /**
+   * Gets a recipe generated from the the Claude ai
+   * using the ingredients given by the user
+   */
   async function generateRecipe() {
     setIsLoading(true);
     const recipeMarkdown = await getRecipeFromChefClaude(ingredients);
     setRecipe(recipeMarkdown);
     setIsLoading(false);
   }
-  
 
   return (
     <main>
@@ -42,6 +71,7 @@ export default function Main() {
       </form>
 
       {errorMessage && (
+        /* Error message for invalid inputs */
         <p style={{ color: "red", fontWeight: "500", textAlign: "center" }}>
           {errorMessage}
         </p>
@@ -50,11 +80,15 @@ export default function Main() {
       {ingredients.length > 0 && (
         <IngredientsList
           ingredients={ingredients}
+          resetIngredients={resetIngredients}
+          removeIngredient={removeIngredient}
           generateRecipe={generateRecipe}
         />
       )}
 
-      {(isLoading || recipe) && <Recipe claudeRecipe={recipe} isLoading={isLoading}/>}
+      {(isLoading || recipe) && (
+        <Recipe claudeRecipe={recipe} isLoading={isLoading} />
+      )}
     </main>
   );
 }

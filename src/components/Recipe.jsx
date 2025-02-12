@@ -3,14 +3,17 @@ import ReactMarkdown from 'react-markdown'
 export default function Recipe(props) {
   return (
     <section aria-live='polite'>
-      <h2>Your Recommendation:</h2>
       {props.isLoading ? (
+        // Loading spinner shown while waiting for Claude response
         <div className="loading-spinner">
           <div className="spinner"></div>
           <p>Chef Claude is cooking up a recipe...</p>
         </div>
       ) : (
-        <ReactMarkdown>{props.claudeRecipe}</ReactMarkdown>
+        <div>
+          <h2>Your Recommendation:</h2>
+          <ReactMarkdown>{props.claudeRecipe}</ReactMarkdown>
+        </div>
       )}
     </section>
   );
