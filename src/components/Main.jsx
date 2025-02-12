@@ -7,6 +7,7 @@ export default function Main() {
   const [ingredients, setIngredients] = React.useState([]);
   const [errorMessage, setErrorMessage] = React.useState("");
   const [recipe, setRecipe] = React.useState("");
+  const [isLoading, setIsLoading] = React.useState(false);
 
   function addIngredient(formData) {
     const newIngredient = formData.get("ingredient").trim();
@@ -21,9 +22,12 @@ export default function Main() {
   }
 
   async function generateRecipe() {
+    setIsLoading(true);
     const recipeMarkdown = await getRecipeFromChefClaude(ingredients);
     setRecipe(recipeMarkdown);
+    setIsLoading(false);
   }
+  
 
   return (
     <main>
@@ -50,7 +54,7 @@ export default function Main() {
         />
       )}
 
-      {generateRecipe && <Recipe claudeRecipe={recipe}/>}
+      {(isLoading || recipe) && <Recipe claudeRecipe={recipe} isLoading={isLoading}/>}
     </main>
   );
 }
