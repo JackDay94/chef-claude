@@ -16,6 +16,14 @@ main {
   margin: 0 auto;
 }
 
+main > small {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+  color:#475467;
+  text-align: center;
+}
+
 /* Header Component Styles */
 
 header {
@@ -77,10 +85,7 @@ header > h1 {
 .ingredients-list {
   margin-bottom: 30px;
   line-height: 24px;
-}
-
-.ingredients-header > h2 {
-  text-align: center;
+  padding-left: 15px;
 }
 
 .show-recipe-container {
@@ -153,6 +158,17 @@ header > h1 {
   color: white;
 }
 
+/* Recipe Component Styles */
+
+.generated-recipe-container {
+  color: #475467;
+  line-height: 26px;
+}
+
+.generated-recipe-container ul li, .generated-recipe-container ol li {
+  margin-bottom: 6px;
+}
+
 /* Loading Spinner */
 
 .loading-spinner {
@@ -176,4 +192,3 @@ header > h1 {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-

@@ -19,6 +19,8 @@ export default function Main() {
       setErrorMessage(`You've already added ${newIngredient}.`);
     } else if (newIngredient === "") {
       setErrorMessage("Please enter an ingredient.");
+    } else if (ingredients.length === 12) {
+      setErrorMessage("No more than 12 ingredients please!")
     } else {
       setIngredients((prevIngredients) => [...prevIngredients, newIngredient]);
       setErrorMessage("");
@@ -60,6 +62,7 @@ export default function Main() {
 
   return (
     <main>
+      <small>Give Chef Claude at least 4 ingredients to find a recipe!</small>
       <form action={addIngredient} className="add-ingredient-form">
         <input
           type="text"

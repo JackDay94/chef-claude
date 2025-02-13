@@ -2,7 +2,7 @@ import ReactMarkdown from 'react-markdown'
 
 export default function Recipe(props) {
   return (
-    <section aria-live='polite'>
+    <section className="generated-recipe-container" aria-live='polite'>
       {props.isLoading ? (
         // Loading spinner shown while waiting for Claude response
         <div className="loading-spinner">
