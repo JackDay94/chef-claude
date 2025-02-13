@@ -24,6 +24,12 @@ main > small {
   text-align: center;
 }
 
+.error-message {
+  color: red; 
+  font-weight: 500; 
+  text-align: center;
+}
+
 /* Header Component Styles */
 
 header {

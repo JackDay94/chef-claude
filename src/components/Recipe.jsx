@@ -1,8 +1,9 @@
+import React from 'react'
 import ReactMarkdown from 'react-markdown'
 
-export default function Recipe(props) {
+const Recipe = React.forwardRef((props, ref) => {
   return (
-    <section className="generated-recipe-container" aria-live='polite'>
+    <section ref={ref} className="generated-recipe-container" aria-live='polite'>
       {props.isLoading ? (
         // Loading spinner shown while waiting for Claude response
         <div className="loading-spinner">
@@ -17,4 +18,8 @@ export default function Recipe(props) {
       )}
     </section>
   );
-}
+});
+
+Recipe.displayName = 'Recipe';
+
+export default Recipe;

@@ -8,21 +8,27 @@ export default function Main() {
   const [errorMessage, setErrorMessage] = React.useState("");
   const [recipe, setRecipe] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
+  const recipeRef = React.useRef(null);
+  const ingredientsLimit = 12;
 
   /**
    * Adds an ingredient to the list of ingredients and
-   * returns an error if the input is empty or already exists
+   * returns an error if the input is empty, already exists or
+   * is above the ingredient limit
    */
   function addIngredient(formData) {
     const newIngredient = formData.get("ingredient").trim();
-    if (ingredients.includes(newIngredient)) {
-      setErrorMessage(`You've already added ${newIngredient}.`);
-    } else if (newIngredient === "") {
+    // Format the ingredient to capitalize the first letter
+    const formattedIngredient = newIngredient.charAt(0).toUpperCase() + newIngredient.slice(1);
+
+    if (ingredients.includes(formattedIngredient)) {
+      setErrorMessage(`You've already added ${formattedIngredient}.`);
+    } else if (formattedIngredient === "") {
       setErrorMessage("Please enter an ingredient.");
-    } else if (ingredients.length === 12) {
-      setErrorMessage("No more than 12 ingredients please!")
+    } else if (ingredients.length === ingredientsLimit) {
+      setErrorMessage(`No more than ${ingredientsLimit} ingredients please!`);
     } else {
-      setIngredients((prevIngredients) => [...prevIngredients, newIngredient]);
+      setIngredients((prevIngredients) => [...prevIngredients, formattedIngredient]);
       setErrorMessage("");
     }
   }
@@ -59,6 +65,16 @@ export default function Main() {
     setRecipe(recipeMarkdown);
     setIsLoading(false);
   }
+  
+  // Scroll the recipe into view once it has generated
+  React.useEffect(() => {
+    if (recipe && recipeRef.current) {
+      recipeRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [recipe]);
 
   return (
     <main>
@@ -75,7 +91,7 @@ export default function Main() {
 
       {errorMessage && (
         /* Error message for invalid inputs */
-        <p style={{ color: "red", fontWeight: "500", textAlign: "center" }}>
+        <p className="error-message">
           {errorMessage}
         </p>
       )}
@@ -90,7 +106,7 @@ export default function Main() {
       )}
 
       {(isLoading || recipe) && (
-        <Recipe claudeRecipe={recipe} isLoading={isLoading} />
+        <Recipe claudeRecipe={recipe} isLoading={isLoading} ref={recipeRef} />
       )}
     </main>
   );
