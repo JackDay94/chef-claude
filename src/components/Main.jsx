@@ -1,7 +1,7 @@
 import React from "react";
 import IngredientsList from "./IngredientsList";
 import Recipe from "./Recipe";
-import { getRecipeFromChefClaude } from "../ai/ai";
+import { getRecipeFromChefClaude, getRecipeFromMistral } from "../ai/ai";
 
 export default function Main() {
   const [ingredients, setIngredients] = React.useState([]);
@@ -61,7 +61,7 @@ export default function Main() {
    */
   async function generateRecipe() {
     setIsLoading(true);
-    const recipeMarkdown = await getRecipeFromChefClaude(ingredients);
+    const recipeMarkdown = await getRecipeFromMistral(ingredients);
     setRecipe(recipeMarkdown);
     setIsLoading(false);
   }
