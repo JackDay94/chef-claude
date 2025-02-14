@@ -198,3 +198,13 @@ header > h1 {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+/* Footer Component Styles */
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #475467;
+  padding: 20px 0;
+}
