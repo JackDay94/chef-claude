@@ -57,11 +57,14 @@ export default function Main() {
 
   /**
    * Gets a recipe generated from the the Claude ai
-   * using the ingredients given by the user
+   * or Mistral ai using the ingredients given by the user
    */
   async function generateRecipe() {
     setIsLoading(true);
-    const recipeMarkdown = await getRecipeFromMistral(ingredients);
+    // Get a recipe from Claude if the API key is set
+    const recipeMarkdown = import.meta.env.VITE_ANTHROPIC_API_KEY
+      ? await getRecipeFromChefClaude(ingredients)
+      : await getRecipeFromMistral(ingredients);
     setRecipe(recipeMarkdown);
     setIsLoading(false);
   }
