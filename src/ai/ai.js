@@ -1,5 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk";
-import { HfInference } from "@huggingface/inference";
+import { InferenceClient } from "@huggingface/inference";
 
 const SYSTEM_PROMPT = `
 You are an assistant that receives a list of ingredients that a user has and suggests 
@@ -39,7 +39,7 @@ export async function getRecipeFromChefClaude(ingredientsArr) {
 }
 
 // Hugging Face API
-const hf = new HfInference(import.meta.env.VITE_HF_ACCESS_TOKEN);
+const hf = new InferenceClient(import.meta.env.VITE_HF_ACCESS_TOKEN);
 
 export async function getRecipeFromHf(ingredientsArr) {
   const ingredientsString = ingredientsArr.join(", ");
