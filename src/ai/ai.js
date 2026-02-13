@@ -7,7 +7,7 @@ a recipe they could make with some or all of those ingredients. You don't need t
 every ingredient they mention in your recipe. The recipe can include additional ingredients 
 they didn't mention, but try not to include too many extra ingredients. Format your response 
 in markdown to make it easier to render to a web page. Ignore any ingredients that do not relate
-to cooking.
+to cooking. /no_think.
 `;
 
 // Anthropic API
@@ -41,11 +41,11 @@ export async function getRecipeFromChefClaude(ingredientsArr) {
 // Hugging Face API
 const hf = new HfInference(import.meta.env.VITE_HF_ACCESS_TOKEN);
 
-export async function getRecipeFromMistral(ingredientsArr) {
+export async function getRecipeFromHf(ingredientsArr) {
   const ingredientsString = ingredientsArr.join(", ");
   try {
     const response = await hf.chatCompletion({
-      model: "mistralai/Mixtral-8x7B-Instruct-v0.1",
+      model: "HuggingFaceTB/SmolLM3-3B",
       messages: [
         { role: "system", content: SYSTEM_PROMPT },
         {

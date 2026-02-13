@@ -1,7 +1,7 @@
 import React from "react";
 import IngredientsList from "./IngredientsList";
 import Recipe from "./Recipe";
-import { getRecipeFromChefClaude, getRecipeFromMistral } from "../ai/ai";
+import { getRecipeFromChefClaude, getRecipeFromHf } from "../ai/ai";
 
 export default function Main() {
   const [ingredients, setIngredients] = React.useState([]);
@@ -64,7 +64,7 @@ export default function Main() {
     // Get a recipe from Claude if the API key is set
     const recipeMarkdown = import.meta.env.VITE_ANTHROPIC_API_KEY
       ? await getRecipeFromChefClaude(ingredients)
-      : await getRecipeFromMistral(ingredients);
+      : await getRecipeFromHf(ingredients);
     setRecipe(recipeMarkdown);
     setIsLoading(false);
   }
