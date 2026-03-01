@@ -114,7 +114,7 @@ header > h1 {
 .show-recipe-container p {
   color: #6b7280;
   font-size: 0.875rem;
-  list-style: 20px;
+  line-height: 20px;
 }
 
 .show-recipe-container button {

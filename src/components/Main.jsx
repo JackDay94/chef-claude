@@ -57,7 +57,7 @@ export default function Main() {
 
   /**
    * Gets a recipe generated from the the Claude ai
-   * or Mistral ai using the ingredients given by the user
+   * or HF ai using the ingredients given by the user
    */
   async function generateRecipe() {
     setIsLoading(true);
